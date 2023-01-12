@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <div class="data-container">
+    <div class="thank-you">
+      Thank you!
+    </div>
+    <div class="data-item">
+      Name: {{ data.name }}
+    </div>
+    <div *ngIf="data.username" class="data-item">
+      Username: {{ data.username }}
+    </div>
+    <div class="data-item">
+      Country: {{ data.country }}
+    </div>
+    <div *ngIf="data.postCode" class="data-item">
+      Post code: {{ data.postCode }}
+    </div>
+    <div class="data-item">
+      Favourite movie: {{ data.movie }}
+    </div>
+    <div class="repeat-button-container">
+      <button mat-flat-button
+              color="primary"
+              (click)="goBack()">
+        Repeat
+      </button>
+    </div>
+  </div>
+</div>

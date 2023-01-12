@@ -1,0 +1,72 @@
+<div class="wrapper">
+    <form [formGroup]="formGroup"
+          (ngSubmit)="onFormSubmit()">
+      <div class="inputs-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Name:</mat-label>
+          <input matInput
+                 type="text"
+                 formControlName="name">
+          <mat-error *ngIf="formGroup.controls.name.hasError('required')">
+            Please enter a name
+          </mat-error>
+          <mat-error *ngIf="formGroup.controls.name.hasError('pattern')">
+            Please enter a name without numbers
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Username:</mat-label>
+          <input matInput
+                 type="text"
+                 formControlName="username">
+          <mat-error *ngIf="formGroup.controls.username.hasError('email')">
+            Please enter a username as email
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Select country:</mat-label>
+          <mat-select formControlName="country">
+            <ng-container *ngFor="let country of countriesList">
+              <mat-option [value]="country.value">{{ country.name }}</mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngIf="formGroup.controls.country.hasError('required')">
+            Please choose a country
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Post Code:</mat-label>
+          <input matInput
+                 type="text"
+                 formControlName="postCode">
+          <mat-error *ngIf="formGroup.controls.postCode.hasError('required')">
+            Please enter a post code
+          </mat-error>
+          <mat-error *ngIf="formGroup.controls.postCode.hasError('pattern')">
+            Please enter a valid post code
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Choose the movie:</mat-label>
+          <input matInput
+                 type="text"
+                 [matAutocomplete]="auto"
+                 formControlName="movie">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let movie of filteredMovies$ | async"
+                        [value]="movie.title">
+              <img alt="" class="movie-img" [src]="movie.posterImageURL" height="25" width="25">
+              <span class="movie-title">{{ movie.title}} ({{ movie.prodYear }})</span>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+      <div class="submit-container">
+        <button mat-flat-button
+                color="primary"
+                type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+</div>
